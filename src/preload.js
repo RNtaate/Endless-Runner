@@ -19,8 +19,9 @@ class Preload extends Phaser.Scene {
     progressBox.fillRect( (this.width / 2) - (progressBoxWidth / 2), (this.height / 2) - (progressBoxHeight / 2), progressBoxWidth, progressBoxHeight);
 
     let loadingText = this.add.text(this.width / 2, this.height / 2, 'Loading ...', {
-      font: "20px monospace",
-      fill: '#ffffff'
+      fontSize: "30px",
+      fill: '#ffffff',
+      fontFamily: '"Akaya Telivigala"'
     }).setOrigin(0.5);
 
     // The event listeners for loading assets
@@ -53,9 +54,10 @@ class Preload extends Phaser.Scene {
   create(){
     this.add.image(this.width / 2, this.height/ 2, 'logo');
 
-    this.message = this.add.text( this.scale.width / 2, 20, 'PRESS "ENTER" TO CONTINUE TO MAIN MENU', {
-      font: "20px monospace",
-      fill: "#ffffff"
+    this.message = this.add.text( this.scale.width / 2, 30, 'PRESS "ENTER" TO CONTINUE TO MAIN MENU', {
+      fontSize: "25px",
+      fill: "#ffffff",
+      fontFamily: '"Akaya Telivigala"'
     }).setOrigin(0.5);
 
     this.message.setAlpha(0);
