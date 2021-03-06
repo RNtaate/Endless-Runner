@@ -1,4 +1,5 @@
 import Phaser from 'phaser';
+import Preload from './preload';
 
 const config = {
   type: Phaser.AUTO,
@@ -10,7 +11,8 @@ const config = {
       gravity: {y: 0},
       debug: false
     }
-  }
+  },
+  scene: [Preload]
 }
 
 const game = new Phaser.Game(config);
