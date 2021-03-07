@@ -47,10 +47,21 @@ class Preload extends Phaser.Scene {
     this.load.image('logo', '../assets/gameLogo.png');
     this.load.image('startGame', '../assets/startButton.png');
     this.load.image('startGameHover', '../assets/startButtonOver.png');
+    this.load.image('options', '../assets/optionsButton.png');
+    this.load.image('optionsHover', '../assets/optionsButtonHover.png');
+    this.load.image('leaderBoard', '../assets/leaderBoard.png');
+    this.load.image('leaderBoardHover', '../assets/leaderBoardHover.png');
+    this.load.image('instructions', '../assets/instructions.png');
+    this.load.image('instructionsHover', '../assets/instructionsHover.png');
+    this.load.image('credits', '../assets/credits.png');
+    this.load.image('creditsHover', '../assets/creditsHover.png');
 
-    for(let i = 0; i < 200; i ++) {
-      this.load.image('logo' + i, '../assets/gameLogo.png');
-    }
+    this.load.image('sky', '../assets/sky.png');
+
+
+    // for(let i = 0; i < 200; i ++) {
+    //   this.load.image('logo' + i, '../assets/gameLogo.png');
+    // }
 
   }
 
