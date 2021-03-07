@@ -55,8 +55,13 @@ class Preload extends Phaser.Scene {
     this.load.image('instructionsHover', '../assets/instructionsHover.png');
     this.load.image('credits', '../assets/credits.png');
     this.load.image('creditsHover', '../assets/creditsHover.png');
+    this.load.image('mainMenu', '../assets/mainMenu.png' );
+    this.load.image('mainMenuHover', '../assets/mainMenuHover.png');
 
     this.load.image('sky', '../assets/sky.png');
+
+    this.load.image('checkbox', '../assets/checkbox2.png');
+    this.load.image('tick', '../assets/tick2.png');
 
 
     // for(let i = 0; i < 200; i ++) {
