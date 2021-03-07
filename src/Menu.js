@@ -16,6 +16,7 @@ class Menu extends Phaser.Scene {
     this.height = this.scale.height;
 
     this.add.image(this.width / 2, this.height / 2, 'sky').setScale(0.5);
+    this.add.image(this.width/ 2, this.height/ 2, 'logo2').setAlpha(0.2);
 
     const startButton = new CustomButton(this, this.width / 2, this.height / 2, 'startGame', 'startGameHover');
     this.add.existing(startButton);
@@ -27,8 +28,8 @@ class Menu extends Phaser.Scene {
     const optionsButton = new CustomButton(this, this.width / 4 , this.height / 4, "options", 'optionsHover');
     this.add.existing(optionsButton);
 
-    optionsButton.setInteractive().on('pointerover', () => {
-      console.log('Thunder over the container');
+    optionsButton.setInteractive().on('pointerup', () => {
+      this.startScene('Options');
     })
 
     const leaderBoardBtn = new CustomButton(this, (this.width * 3) / 4 , this.height / 4, "leaderBoard", 'leaderBoardHover');
@@ -48,13 +49,15 @@ class Menu extends Phaser.Scene {
     const creditsBtn = new CustomButton(this, (this.width) / 4 , (this.height * 3) / 4, "credits", 'creditsHover');
     this.add.existing(creditsBtn);
 
-    creditsBtn.setInteractive().on('pointerover', () => {
-      console.log('Thunder over the container');
+    creditsBtn.setInteractive().on('pointerup', () => {
+      this.startScene('Credits');
     })
 
+  }
 
-
-
+  startScene(newScene){
+    this.scene.stop();
+    this.scene.start(newScene);
   }
 }
 
