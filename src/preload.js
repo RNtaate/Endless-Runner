@@ -45,6 +45,7 @@ class Preload extends Phaser.Scene {
 
     // Loading of the assets
     this.load.image('logo', '../assets/gameLogo.png');
+    this.load.image('logo2', '../assets/gameLogoTransparent.png');
     this.load.image('startGame', '../assets/startButton.png');
     this.load.image('startGameHover', '../assets/startButtonOver.png');
     this.load.image('options', '../assets/optionsButton.png');
@@ -64,9 +65,9 @@ class Preload extends Phaser.Scene {
     this.load.image('tick', '../assets/tick2.png');
 
 
-    // for(let i = 0; i < 200; i ++) {
-    //   this.load.image('logo' + i, '../assets/gameLogo.png');
-    // }
+    for(let i = 0; i < 200; i ++) {
+      this.load.image('logo' + i, '../assets/gameLogo.png');
+    }
 
   }
 
