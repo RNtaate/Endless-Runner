@@ -43,11 +43,17 @@ class Options extends Phaser.Scene {
     }).setOrigin(0, 0.5);
     
     firstTick.setVisible(true);
+    if(!gameSound.music){
+      firstTick.setVisible(false);
+    }
 
     const secondCheckBox = this.add.image(this.width / 4, this.height / 2 + 100, 'checkbox').setScale(1.5);
     const secondTick = this.add.image(this.width / 4, this.height / 2 + 100, 'tick').setScale(1.5);
     
     secondTick.setVisible(true);
+    if(!gameSound.sound){
+      secondTick.setVisible(false);
+    }
 
     firstCheckBox.setInteractive().on('pointerup', () => {
       gameSound.music = this.updateSoundStatus(firstTick, gameSound.music);
