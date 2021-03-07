@@ -5,6 +5,7 @@ class Preload extends Phaser.Scene {
     super({key: 'Preload'});
     this.width;
     this.height;
+    this.enter;
   }
 
   preload() {
@@ -44,6 +45,8 @@ class Preload extends Phaser.Scene {
 
     // Loading of the assets
     this.load.image('logo', '../assets/gameLogo.png');
+    this.load.image('startGame', '../assets/startButton.png');
+    this.load.image('startGameHover', '../assets/startButtonOver.png');
 
     for(let i = 0; i < 200; i ++) {
       this.load.image('logo' + i, '../assets/gameLogo.png');
@@ -71,6 +74,15 @@ class Preload extends Phaser.Scene {
       alpha: 1,
       yoyo: true
     })
+
+    this.enter = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
+  }
+
+  update() {
+    if(Phaser.Input.Keyboard.JustDown(this.enter)){
+      this.scene.stop();
+      this.scene.start('Menu');
+    }
   }
 }
 
