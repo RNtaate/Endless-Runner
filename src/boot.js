@@ -1,6 +1,11 @@
 import Phaser from 'phaser';
 import WebFontFile from './support_script/webfontloader';
 
+let gameState = {
+  sceneWidth: 0,
+  sceneHeight: 0,
+}
+
 class Boot extends Phaser.Scene {
   constructor() {
     super({key: 'Boot'});
@@ -11,9 +16,13 @@ class Boot extends Phaser.Scene {
   }
 
   create() {
+
+    gameState.sceneWidth = this.scale.width;
+    gameState.sceneHeight = this.scale.height;
+
     this.scene.stop();
     this.scene.start('Preload');
   }
 }
 
-export default Boot;
+export {Boot, gameState};
