@@ -14,6 +14,22 @@ class Game extends Phaser.Scene {
 
     this.addGameBackground();
 
+    this.player = this.physics.add.sprite(200, gameState.sceneHeight - 300,  'player').setScale(0.3);
+
+    this.physics.add.collider(this.player, this.groundGroup);
+    this.player.setGravityY(800);
+    this.player.setDepth(6);
+    this.player.body.setCollideWorldBounds();
+    this.player.setSize(this.player.width / 2, this.player.height - 30);
+    this.player.setOffset(this.player.width / 2 - 20, 30);
+
+    this.anims.create({
+      key: 'run',
+      frameRate: 10,
+      frames: this.anims.generateFrameNumbers('player', {start: 0, end: 5}),
+      repeat: -1
+    });
+
   }
 
   createPlatform( group, spriteWidth, myTexture, dist = 0) {
@@ -92,6 +108,8 @@ class Game extends Phaser.Scene {
     this.moveBackgroundPlatform(this.mountainGroup, this.mountainWidth, 'mountains', 0.5);
     this.moveBackgroundPlatform(this.plateauGroup, this.plateauWidth, 'plateau', 1.5);
     this.moveBackgroundPlatform(this.groundGroup, this.groundWidth, 'ground', 4);
+
+    this.player.anims.play('run', true);
 
   }
 }
