@@ -21,8 +21,8 @@ class Menu extends Phaser.Scene {
     const startButton = new CustomButton(this, this.width / 2, this.height / 2, 'startGame', 'startGameHover');
     this.add.existing(startButton);
 
-    startButton.setInteractive().on('pointerover', () => {
-      console.log('Thunder over the container');
+    startButton.setInteractive().on('pointerup', () => {
+      this.startScene('Game');
     })
 
     const optionsButton = new CustomButton(this, this.width / 4 , this.height / 4, "options", 'optionsHover');
