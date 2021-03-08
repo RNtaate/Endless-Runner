@@ -76,6 +76,24 @@ class Game extends Phaser.Scene {
 
     this.createPlatform(this.groundGroup, this.groundWidth, 'ground');
   }
+
+  moveBackgroundPlatform(group, platformWidth, myTexture, scrollFactor) {
+    group.children.iterate((child) => {
+      child.x -= scrollFactor;
+      if(child.x < -(child.displayWidth)) {
+        group.killAndHide(child);
+        this.updatePlatform(group, platformWidth, myTexture, scrollFactor);
+      }
+    })
+  }
+  
+  update() {
+
+    this.moveBackgroundPlatform(this.mountainGroup, this.mountainWidth, 'mountains', 0.5);
+    this.moveBackgroundPlatform(this.plateauGroup, this.plateauWidth, 'plateau', 1.5);
+    this.moveBackgroundPlatform(this.groundGroup, this.groundWidth, 'ground', 4);
+
+  }
 }
 
 export default Game;
