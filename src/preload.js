@@ -17,7 +17,7 @@ class Preload extends Phaser.Scene {
     let progressBar = this.add.graphics();
     let progressBox = this.add.graphics();
     progressBox.fillStyle(0x222222, 0.8);
-    progressBox.fillRect( (this.width / 2) - (progressBoxWidth / 2), (this.height / 2) - (progressBoxHeight / 2), progressBoxWidth, progressBoxHeight);
+    progressBox.fillRoundedRect( (this.width / 2) - (progressBoxWidth / 2), (this.height / 2) - (progressBoxHeight / 2), progressBoxWidth, progressBoxHeight, 25);
 
     let loadingText = this.add.text(this.width / 2, this.height / 2, 'Loading ...', {
       fontSize: "30px",
@@ -33,7 +33,11 @@ class Preload extends Phaser.Scene {
     this.load.on('progress',(value) => {
       progressBar.clear();
       progressBar.fillStyle(0xf0ad4e, 1);
-      progressBar.fillRect((this.width / 2) - (progressBarWidth / 2), (this.height / 2) - (progressBarHeight / 2), progressBarWidth * value, progressBarHeight);
+      let myProgress = progressBarWidth * value;
+      if (value < 0.1){
+        myProgress = progressBarWidth * 0.1;
+      } 
+      progressBar.fillRoundedRect((this.width / 2) - (progressBarWidth / 2), (this.height / 2) - (progressBarHeight / 2), myProgress, progressBarHeight, {tl: 15, bl: 15, tr: 15, br: 15});
     });
 
     this.load.on('complete', (e) => {
