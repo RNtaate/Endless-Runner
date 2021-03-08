@@ -64,14 +64,17 @@ class Preload extends Phaser.Scene {
     this.load.image('mainMenuHover', '../assets/mainMenuHover.png');
 
     this.load.image('sky', '../assets/sky.png');
+    this.load.image('mountains', '../assets/mountains.png');
+    this.load.image('plateau', '../assets/plateau.png');
+    this.load.image('ground', '../assets/ground.png');
 
     this.load.image('checkbox', '../assets/checkbox2.png');
     this.load.image('tick', '../assets/tick2.png');
 
 
-    for(let i = 0; i < 200; i ++) {
-      this.load.image('logo' + i, '../assets/gameLogo.png');
-    }
+    // for(let i = 0; i < 200; i ++) {
+    //   this.load.image('logo' + i, '../assets/gameLogo.png');
+    // }
 
   }
 
@@ -102,7 +105,7 @@ class Preload extends Phaser.Scene {
   update() {
     if(Phaser.Input.Keyboard.JustDown(this.enter)){
       this.scene.stop();
-      this.scene.start('Menu');
+      this.scene.start('Game');
     }
   }
 }
