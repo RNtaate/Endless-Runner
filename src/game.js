@@ -16,18 +16,53 @@ class Game extends Phaser.Scene {
 
   }
 
+  createPlatform( group, spriteWidth, myTexture, dist = 0) {
+    let platform = group.create(spriteWidth + dist, gameState.sceneHeight, myTexture)
+   .setOrigin(0, 1)
+   .setScale(0.5);
+    if(myTexture === 'ground'){
+      platform.setImmovable(true); 
+      platform.setSize(platform.displayWidth * 2, platform.displayHeight - 50);
+    }
+
+    switch(myTexture){
+      case 'ground':
+        platform.setDepth(2);
+        break;
+      case 'plateau':
+        platform.setDepth(1);
+        break;
+      default: 
+    }
+  }
+
+  updatePlatform(group, spriteWidth, myTexture, dist = 0){
+    let child = group.get(spriteWidth - dist, gameState.sceneHeight, myTexture);
+    child.setVisible(true);
+    child.setActive(true);
+    switch(myTexture){
+      case 'ground':
+        child.setDepth(2);
+        break;
+      case 'plateau':
+        child.setDepth(1);
+        break;
+      default:
+    }
+  }
+
   addGameBackground() {
     this.add.image(gameState.sceneWidth / 2, gameState.sceneHeight / 2, 'sky').setScale(0.5);
 
     this.mountainGroup = this.add.group();
     this.firstMountain = this.mountainGroup.create(0, gameState.sceneHeight, 'mountains').setScale(0.5).setOrigin(0, 1);
     this.mountainWidth = this.firstMountain.displayWidth;
-    // this.createPlatform(this.mountainGroup, this.mountainWidth, 'mountains');
+    this.createPlatform(this.mountainGroup, this.mountainWidth, 'mountains');
 
     this.plateauGroup = this.add.group();
     this.firstPlateau = this.plateauGroup.create(0, gameState.sceneHeight, 'plateau').setScale(0.5).setOrigin(0, 1);
     this.plateauWidth = this.firstPlateau.displayWidth;
-    // this.createPlatform(this.plateauGroup, this.plateauWidth, 'plateau');
+    this.createPlatform(this.plateauGroup, this.plateauWidth, 'plateau');
 
     this.groundGroup = this.physics.add.group();
     this.first = this.groundGroup.create(0, this.scale.height, 'ground')
@@ -39,7 +74,7 @@ class Game extends Phaser.Scene {
     this.groundHeight = this.first.displayHeight;
     this.first.setSize(this.groundWidth * 2, this.groundHeight - 50);
 
-    // this.createPlatform(this.groundGroup, this.groundWidth, 'ground');
+    this.createPlatform(this.groundGroup, this.groundWidth, 'ground');
   }
 }
 
