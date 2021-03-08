@@ -105,7 +105,7 @@ class Preload extends Phaser.Scene {
   update() {
     if(Phaser.Input.Keyboard.JustDown(this.enter)){
       this.scene.stop();
-      this.scene.start('Game');
+      this.scene.start('Menu');
     }
   }
 }
