@@ -25,10 +25,21 @@ class Game extends Phaser.Scene {
 
     this.anims.create({
       key: 'run',
-      frameRate: 10,
+      frameRate: 12,
       frames: this.anims.generateFrameNumbers('player', {start: 0, end: 5}),
       repeat: -1
     });
+
+    this.anims.create({
+      key: 'jump',
+      frameRate: 1,
+      frames: this.anims.generateFrameNumbers('player', {start: 0, end: 0}),
+      repeat: -1
+    });
+
+    this.cursors = this.input.keyboard.createCursorKeys();
+    this.jumpTimes = 2;
+    this.jump = 0;
 
   }
 
@@ -110,6 +121,31 @@ class Game extends Phaser.Scene {
     this.moveBackgroundPlatform(this.groundGroup, this.groundWidth, 'ground', 4);
 
     this.player.anims.play('run', true);
+
+    if(Phaser.Input.Keyboard.JustDown(this.cursors.up)){
+      if(this.player.body.touching.down || (this.jump < this.jumpTimes && (this.jump > 0))){
+        this.player.setVelocityY(-400);
+        
+        if((this.player.body.touching.down)){
+          this.jump = 0;
+        }
+        this.jump ++;
+      }
+    }
+
+    if(!this.player.body.touching.down){
+      this.player.anims.play('jump', true);
+    }
+
+    if(this.cursors.down.isDown) {
+      if(!this.player.body.touching.down) {
+        this.player.setGravityY(1300);
+      }
+    }
+
+    if(this.player.body.touching.down){
+      this.player.setGravityY(800)
+    }
 
   }
 }
