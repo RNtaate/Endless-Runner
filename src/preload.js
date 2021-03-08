@@ -71,6 +71,8 @@ class Preload extends Phaser.Scene {
     this.load.image('checkbox', '../assets/checkbox2.png');
     this.load.image('tick', '../assets/tick2.png');
 
+    this.load.spritesheet('player', '../assets/playersprite.png', {frameWidth: 150, frameWidth: 250});
+
 
     // for(let i = 0; i < 200; i ++) {
     //   this.load.image('logo' + i, '../assets/gameLogo.png');
