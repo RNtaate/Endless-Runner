@@ -14,7 +14,7 @@ class Game extends Phaser.Scene {
 
     this.addGameBackground();
 
-    this.player = this.physics.add.sprite(200, gameState.sceneHeight - 300,  'player').setScale(0.3);
+    this.player = this.physics.add.sprite(200, gameState.sceneHeight - 300,  'player').setScale(0.2);
 
     this.physics.add.collider(this.player, this.groundGroup);
     this.player.setGravityY(800);
@@ -23,19 +23,9 @@ class Game extends Phaser.Scene {
     this.player.setSize(this.player.width / 2, this.player.height - 30);
     this.player.setOffset(this.player.width / 2 - 20, 30);
 
-    this.anims.create({
-      key: 'run',
-      frameRate: 12,
-      frames: this.anims.generateFrameNumbers('player', {start: 0, end: 5}),
-      repeat: -1
-    });
+    this.createAnimations('run', 'player', 0, 5, -1, 12 );
 
-    this.anims.create({
-      key: 'jump',
-      frameRate: 1,
-      frames: this.anims.generateFrameNumbers('player', {start: 0, end: 0}),
-      repeat: -1
-    });
+    this.createAnimations('jump', 'player', 0, 0, -1, 1);
 
     this.cursors = this.input.keyboard.createCursorKeys();
     this.jumpTimes = 2;
@@ -76,6 +66,15 @@ class Game extends Phaser.Scene {
         break;
       default:
     }
+  }
+
+  createAnimations(animKey, spriteKey, startFrame, endFrame, loopTimes, frameRate) {
+    return (this.anims.create({
+      key: animKey,
+      frames: this.anims.generateFrameNumbers(spriteKey, {start: startFrame, end: endFrame}),
+      frameRate: frameRate,
+      repeat: loopTimes
+    }));
   }
 
   addGameBackground() {
