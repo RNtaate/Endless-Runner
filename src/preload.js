@@ -72,6 +72,9 @@ class Preload extends Phaser.Scene {
     this.load.image('tick', '../assets/tick2.png');
 
     this.load.spritesheet('player', '../assets/playersprite.png', {frameWidth: 150, frameWidth: 250});
+    this.load.spritesheet('bird', '../assets/birdSprite.png', {frameWidth: 290, frameHeight: 300});
+    this.load.image('coin', '../assets/coin.png');
+    this.load.image('spike', '..assets/')
 
 
     // for(let i = 0; i < 200; i ++) {
@@ -107,7 +110,7 @@ class Preload extends Phaser.Scene {
   update() {
     if(Phaser.Input.Keyboard.JustDown(this.enter)){
       this.scene.stop();
-      this.scene.start('Menu');
+      this.scene.start('Game');
     }
   }
 }
