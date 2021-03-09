@@ -10,6 +10,7 @@ class Game extends Phaser.Scene {
    
   }
 
+  //Start of create function
   create() {
 
     this.addGameBackground();
@@ -51,7 +52,46 @@ class Game extends Phaser.Scene {
       callbackScope: this,
       loop: true
     })
+
+
+    this.coinGroup = this.physics.add.group();
+    function createCoin() {
+      if(this.birdGroup.getLength() >= 2) {
+        let child = this.birdGroup.getChildren()[Phaser.Math.Between(0, this.birdGroup.getLength() - 1)];
+        let coin = this.coinGroup.create(child.x, child.y, 'coin').setScale(0.05);
+        coin.setGravityY(700);
+        coin.setGravityX(0);
+        coin.setDepth(6);
+        coin.setBounce(1);
+        coin.setSize( coin.displayWidth - 0.03, coin.displayHeight - 0.03);
+      }
+    }
+
+    this.physics.add.collider(this.coinGroup, this.groundGroup, function(singleCoin){
+      singleCoin.setVelocityX(-200);
+    });
+
+    this.coinCreationTime = this.time.addEvent({
+      callback: createCoin,
+      delay: 1000,
+      callbackScope: this,
+      loop: true
+    })
+
+    this.leftBound = this.add.rectangle(-50, 0, 10, gameState.sceneHeight, 0x000000).setOrigin(0);
+    this.boundGroup = this.physics.add.staticGroup();
+    this.boundGroup.add(this.leftBound);
+
+    this.physics.add.collider(this.birdGroup, this.boundGroup, function(singleBird) {
+      singleBird.destroy();
+    })
+
+    this.physics.add.collider(this.coinGroup, this.boundGroup, function(singleCoin){
+      singleCoin.destroy();
+    });
   }
+
+  // END of create function above
 
   createPlatform( group, spriteWidth, myTexture, dist = 0) {
     let platform = group.create(spriteWidth + dist, gameState.sceneHeight, myTexture)
