@@ -7,7 +7,7 @@ class Game extends Phaser.Scene {
   }
 
   preload() {
-
+   
   }
 
   create() {
@@ -31,6 +31,26 @@ class Game extends Phaser.Scene {
     this.jumpTimes = 2;
     this.jump = 0;
 
+
+    this.birdGroup = this.physics.add.group();
+
+    let createBird = () => {
+      let myY =  Phaser.Math.Between(100, 300);
+      let bird = this.birdGroup.create( gameState.sceneWidth + 100, myY, 'bird').setScale(0.3);
+      bird.setVelocityX(-100);
+      bird.flipX = true;
+      bird.setDepth(6);
+      bird.setSize(bird.displayWidth - 10, bird.displayHeight - 10);
+    }
+
+    this.createAnimations('fly', 'bird', 0, 8, -1, 7);
+
+    this.birdCreationTime = this.time.addEvent({
+      callback: createBird,
+      delay: Phaser.Math.Between(2500, 5000),
+      callbackScope: this,
+      loop: true
+    })
   }
 
   createPlatform( group, spriteWidth, myTexture, dist = 0) {
@@ -120,6 +140,9 @@ class Game extends Phaser.Scene {
     this.moveBackgroundPlatform(this.groundGroup, this.groundWidth, 'ground', 4);
 
     this.player.anims.play('run', true);
+    this.birdGroup.children.iterate((child) => {
+      child.anims.play('fly', true);
+    })
 
     if(Phaser.Input.Keyboard.JustDown(this.cursors.up)){
       if(this.player.body.touching.down || (this.jump < this.jumpTimes && (this.jump > 0))){
