@@ -75,6 +75,7 @@ class Game extends Phaser.Scene {
 
     this.physics.add.overlap(this.player, this.coinGroup, (player, singleCoin) => {
       singleCoin.destroy();
+      this.hoveringTextScore(player, '1+', "#0000ff");
     })
 
     this.coinCreationTime = this.time.addEvent({
@@ -86,14 +87,16 @@ class Game extends Phaser.Scene {
 
     this.missileGroup = this.physics.add.group();
 
-    this.physics.add.collider(this.player, this.missileGroup, function(player, missile){
-      player.setVelocityY(-300);
-      missile.setVelocityY(300);
-    });
-
-    this.physics.add.overlap(this.player, this.missileGroup, function(player, missile) {
-      missile.destroy();
-      player.setVelocityY(0);
+    this.physics.add.collider(this.player, this.missileGroup, (player, missile) => {
+      if(player.body.touching.down && missile.body.touching.up){
+        player.setVelocityY(-300);
+        missile.setVelocityY(300);
+        this.hoveringTextScore(player, "+0.25", "#00ff00");
+      }else{
+        missile.destroy();
+        player.setVelocityY(0);
+        this.hoveringTextScore(player, "Damage", "#ff0000", "#ff0000");
+      }
     });
 
     this.leftBound = this.add.rectangle(-50, 0, 10, gameState.sceneHeight, 0x000000).setOrigin(0);
@@ -205,6 +208,29 @@ class Game extends Phaser.Scene {
     missile.setOffset(0, 150);
   }
   
+  hoveringTextScore(player, message, strokeColor, fillColor = '#ffffff'){
+    let singleScoreText = this.add.text(player.x, player.y, message, {
+      fontSize: '30px',
+      fill: fillColor,
+      fontFamily: '"Akaya Telivigala"',
+      strokeThickness: 2,
+      stroke: strokeColor
+    }).setDepth(7);
+    singleScoreText.setAlpha(1);
+
+    this.tweens.add({
+      targets: singleScoreText,
+      repeat: 0,
+      duration: 1000,
+      ease: 'linear',
+      alpha: 0,
+      y: singleScoreText.y - 100,
+      onComplete: function() {
+        singleScoreText.destroy();
+      }
+    })
+  }
+
   update(time, delta) {
 
     this.moveBackgroundPlatform(this.mountainGroup, this.mountainWidth, 'mountains', 0.5);
