@@ -4,10 +4,12 @@ import {gameState} from './boot';
 class Game extends Phaser.Scene {
   constructor(){
     super({key: 'Game'});
+    this.timer = 0;
+    this.secondTimer = 0;
   }
 
   preload() {
-   
+    this.load.image('missile', '../assets/missile.png');
   }
 
   //Start of create function
@@ -78,6 +80,8 @@ class Game extends Phaser.Scene {
       loop: true
     })
 
+    this.missileGroup = this.physics.add.group();
+
     this.leftBound = this.add.rectangle(-50, 0, 10, gameState.sceneHeight, 0x000000).setOrigin(0);
     this.boundGroup = this.physics.add.staticGroup();
     this.boundGroup.add(this.leftBound);
@@ -89,6 +93,10 @@ class Game extends Phaser.Scene {
     this.physics.add.collider(this.coinGroup, this.boundGroup, function(singleCoin){
       singleCoin.destroy();
     });
+
+    this.physics.add.collider(this.missileGroup, this.boundGroup, function(singleMissile) {
+      singleMissile.destroy();
+    })
   }
 
   // END of create function above
@@ -172,8 +180,16 @@ class Game extends Phaser.Scene {
       }
     })
   }
+
+  createMissile(height, texture) {
+    let missile = this.missileGroup.create(gameState.sceneWidth + 100, height, texture);
+    missile.setScale(0.1);
+    missile.setDepth(6);
+    missile.setSize(missile.width, missile.height - 300);
+    missile.setOffset(0, 150);
+  }
   
-  update() {
+  update(time, delta) {
 
     this.moveBackgroundPlatform(this.mountainGroup, this.mountainWidth, 'mountains', 0.5);
     this.moveBackgroundPlatform(this.plateauGroup, this.plateauWidth, 'plateau', 1.5);
@@ -183,6 +199,22 @@ class Game extends Phaser.Scene {
     this.birdGroup.children.iterate((child) => {
       child.anims.play('fly', true);
     })
+
+    this.missileGroup.children.iterate((child) => {
+      child.x -= 5;
+    })
+
+    this.timer += delta;
+    if(this.timer >= 5000) {
+      this.createMissile(415, 'missile');
+      this.timer = 0;
+    }
+    
+    this.secondTimer += delta;
+    if(this.secondTimer >= 7000){
+      this.createMissile(300, 'missile2');
+      this.secondTimer = 0;
+    }
 
     if(Phaser.Input.Keyboard.JustDown(this.cursors.up)){
       if(this.player.body.touching.down || (this.jump < this.jumpTimes && (this.jump > 0))){
