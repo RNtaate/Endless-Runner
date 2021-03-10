@@ -34,6 +34,7 @@ class Game extends Phaser.Scene {
     this.jumpTimes = 2;
     this.jump = 0;
 
+    // Birds SECTION
 
     this.birdGroup = this.physics.add.group();
 
@@ -55,18 +56,11 @@ class Game extends Phaser.Scene {
       loop: true
     })
 
+    // Coins SECTION
 
     this.coinGroup = this.physics.add.group();
-    function createCoin() {
-      if(this.birdGroup.getLength() >= 2) {
-        let child = this.birdGroup.getChildren()[Phaser.Math.Between(0, this.birdGroup.getLength() - 1)];
-        let coin = this.coinGroup.create(child.x, child.y, 'coin').setScale(0.05);
-        coin.setGravityY(700);
-        coin.setGravityX(0);
-        coin.setDepth(6);
-        coin.setBounce(1);
-        coin.setSize( coin.width - 200, coin.height - 200);
-      }
+    let createCoin = () => {
+      this.createBirdDrop(this.coinGroup, 'coin');
     }
 
     this.physics.add.collider(this.coinGroup, this.groundGroup, function(singleCoin){
@@ -84,6 +78,32 @@ class Game extends Phaser.Scene {
       callbackScope: this,
       loop: true
     })
+
+
+    //Spikes SECTION
+
+    this.spikeGroup = this.physics.add.group();
+    function createSpike () {
+      this.createBirdDrop(this.spikeGroup, 'spike');
+    }
+
+    this.spikeCreationTime = this.time.addEvent({
+      callback: createSpike,
+      delay: 5000,
+      callbackScope: this,
+      loop: true
+    });
+
+    this.physics.add.collider(this.spikeGroup, this.groundGroup, (singleSpike) => {
+      singleSpike.setVelocityX(-200);
+    });
+
+    this.physics.add.overlap(this.player, this.spikeGroup, (player, singleSpike) => {
+      singleSpike.destroy();
+      this.hoveringTextScore(player, "Spiked!", '#ff0000', '#800080');
+    })
+
+    // Missiles SECTION
 
     this.missileGroup = this.physics.add.group();
 
@@ -112,6 +132,10 @@ class Game extends Phaser.Scene {
     this.physics.add.collider(this.coinGroup, this.boundGroup, function(singleCoin){
       singleCoin.destroy();
     });
+
+    this.physics.add.collider(this.spikeGroup, this.boundGroup, (singleSpike) => {
+      singleSpike.destroy();
+    })
 
     this.physics.add.collider(this.missileGroup, this.boundGroup, function(singleMissile) {
       singleMissile.destroy();
@@ -198,6 +222,21 @@ class Game extends Phaser.Scene {
         this.updatePlatform(group, platformWidth, myTexture, scrollFactor);
       }
     })
+  }
+
+  createBirdDrop(group, texture) {
+    if(this.birdGroup.getLength() >= 2) {
+      let child = this.birdGroup.getChildren()[Phaser.Math.Between(0, this.birdGroup.getLength() - 1)];
+      let drop = group.create(child.x, child.y, texture).setScale(0.05);
+      if(texture === 'spike') {
+        drop.setScale(0.1)
+      }
+      drop.setGravityY(700);
+      drop.setGravityX(0);
+      drop.setDepth(6);
+      drop.setBounce(1);
+      drop.setSize( drop.width - 200, drop.height - 200);
+    }
   }
 
   createMissile(height, texture) {
