@@ -65,13 +65,17 @@ class Game extends Phaser.Scene {
         coin.setGravityX(0);
         coin.setDepth(6);
         coin.setBounce(1);
-        coin.setSize( coin.displayWidth - 0.03, coin.displayHeight - 0.03);
+        coin.setSize( coin.width - 200, coin.height - 200);
       }
     }
 
     this.physics.add.collider(this.coinGroup, this.groundGroup, function(singleCoin){
       singleCoin.setVelocityX(-200);
     });
+
+    this.physics.add.overlap(this.player, this.coinGroup, (player, singleCoin) => {
+      singleCoin.destroy();
+    })
 
     this.coinCreationTime = this.time.addEvent({
       callback: createCoin,
@@ -82,9 +86,21 @@ class Game extends Phaser.Scene {
 
     this.missileGroup = this.physics.add.group();
 
+    this.physics.add.collider(this.player, this.missileGroup, function(player, missile){
+      player.setVelocityY(-300);
+      missile.setVelocityY(300);
+    });
+
+    this.physics.add.overlap(this.player, this.missileGroup, function(player, missile) {
+      missile.destroy();
+      player.setVelocityY(0);
+    });
+
     this.leftBound = this.add.rectangle(-50, 0, 10, gameState.sceneHeight, 0x000000).setOrigin(0);
+    this.bottomBound = this.add.rectangle(0, gameState.sceneHeight , gameState.sceneWidth, 10, 0x000000).setOrigin(0);
     this.boundGroup = this.physics.add.staticGroup();
     this.boundGroup.add(this.leftBound);
+    this.boundGroup.add(this.bottomBound);
 
     this.physics.add.collider(this.birdGroup, this.boundGroup, function(singleBird) {
       singleBird.destroy();
