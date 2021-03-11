@@ -62,6 +62,8 @@ class Preload extends Phaser.Scene {
     this.load.image('creditsHover', '../assets/creditsHover.png');
     this.load.image('mainMenu', '../assets/mainMenu.png' );
     this.load.image('mainMenuHover', '../assets/mainMenuHover.png');
+    this.load.image('playAgain', '../assets/playAgain.png' );
+    this.load.image('playAgainHover', '../assets/playAgainHover.png');
 
     this.load.image('sky', '../assets/sky.png');
     this.load.image('mountains', '../assets/mountains.png');
@@ -113,7 +115,7 @@ class Preload extends Phaser.Scene {
   update() {
     if(Phaser.Input.Keyboard.JustDown(this.enter)){
       this.scene.stop();
-      this.scene.start('Game');
+      this.scene.start('GameOver');
     }
   }
 }
