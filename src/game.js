@@ -7,7 +7,6 @@ class Game extends Phaser.Scene {
     this.timer = 0;
     this.secondTimer = 0; 
     this.healthTimer = 0;
-    this.health = 120;
     this.missileScore = 0;
   }
 
@@ -19,6 +18,7 @@ class Game extends Phaser.Scene {
   create() {
 
     gameState.score = 0;
+    this.health = 120;
 
     this.scoreText = this.add.text(50, 25, 'Coins: ', {
       fontSize: "40px",
@@ -367,6 +367,7 @@ class Game extends Phaser.Scene {
 
     if(this.health <= 0) {
       this.scene.stop();
+      this.scene.start('GameOver');
     }
 
     if(this.missileScore >= 1){
