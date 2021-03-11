@@ -4,6 +4,7 @@ import WebFontFile from './support_script/webfontloader';
 let gameState = {
   sceneWidth: 0,
   sceneHeight: 0,
+  score: 0
 }
 
 class Boot extends Phaser.Scene {
