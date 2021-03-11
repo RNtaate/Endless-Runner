@@ -73,6 +73,7 @@ class Preload extends Phaser.Scene {
 
     this.load.spritesheet('player', '../assets/playersprite.png', {frameWidth: 150, frameWidth: 250});
     this.load.spritesheet('bird', '../assets/birdSprite.png', {frameWidth: 290, frameHeight: 300});
+    this.load.spritesheet('explosion', '../assets/explosion.png', {frameWidth: 64, frameHeight: 63});
     this.load.image('coin', '../assets/coin.png');
     this.load.image('spike', '../assets/spike.png');
     this.load.image('missile', '../assets/missile.png');
