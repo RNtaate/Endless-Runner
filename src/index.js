@@ -5,6 +5,7 @@ import Menu from './Menu';
 import Options from './Options';
 import Credits from './Credits';
 import Game from './game';
+import GameOver from './gameOver';
 
 const config = {
   type: Phaser.AUTO,
@@ -17,7 +18,7 @@ const config = {
       debug: false
     }
   },
-  scene: [Boot, Preload, Menu, Options, Credits, Game]
+  scene: [Boot, Preload, Menu, Options, Credits, Game, GameOver]
 }
 
 const game = new Phaser.Game(config);
