@@ -5,7 +5,10 @@ class Game extends Phaser.Scene {
   constructor(){
     super({key: 'Game'});
     this.timer = 0;
-    this.secondTimer = 0;
+    this.secondTimer = 0; 
+    this.healthTimer = 0;
+    this.health = 120;
+    this.missileScore = 0;
   }
 
   preload() {
@@ -48,10 +51,10 @@ class Game extends Phaser.Scene {
     this.progressBar.setDepth(8);
 
     this.progressBox.lineStyle(3, 0x0275d8, 1);
-    this.progressBox.strokeRect(170, 95, 200, 10);
+    this.progressBox.strokeRect(170, 95, this.health, 10);
 
     this.progressBar.fillStyle(0xFFD700, 1);
-    this.progressBar.fillRect(170, 95,  200, 10);
+    this.progressBar.fillRect(170, 95,  this.health, 10);
 
 
 
@@ -110,6 +113,7 @@ class Game extends Phaser.Scene {
     this.physics.add.overlap(this.player, this.coinGroup, (player, singleCoin) => {
       singleCoin.destroy();
       gameState.score += 1;
+      this.health += 1;
       this.scoreValue.setText(`${gameState.score}`);
       this.hoveringTextScore(player, '1+', "#0000ff");
     })
@@ -142,6 +146,7 @@ class Game extends Phaser.Scene {
 
     this.physics.add.overlap(this.player, this.spikeGroup, (player, singleSpike) => {
       singleSpike.destroy();
+      this.health -= 3;
       this.hoveringTextScore(player, "Spiked!", '#CCCC00', '#800080');
     });
 
@@ -160,11 +165,24 @@ class Game extends Phaser.Scene {
       if(player.body.touching.down && missile.body.touching.up){
         player.setVelocityY(-300);
         missile.setVelocityY(300);
-        this.hoveringTextScore(player, "+0.25", "#00ff00");
+        let message = '';
+        if(missile.y < 350){
+          message = message + '+0.25';
+          this.missileScore += 0.25;
+        }else{
+          message = message + '+0.1';
+          this.missileScore += 0.1;
+        }
+        this.hoveringTextScore(player, message, "#00ff00");
       }else{
+        if(missile.y < 350){
+          this.health -= 3;
+        }else{
+          this.health -= 1;
+        }
         missile.destroy();
         player.setVelocityY(0);
-        this.hoveringTextScore(player, "Damage", "#ff0000", "#ff0000");
+        this.hoveringTextScore(player, 'Damage', "#ff0000", "#ff0000");
 
         this.explosion.x = player.x;
         this.explosion.y = player.y;
@@ -192,6 +210,24 @@ class Game extends Phaser.Scene {
 
     this.physics.add.collider(this.missileGroup, this.boundGroup, function(singleMissile) {
       singleMissile.destroy();
+    })
+
+
+    // Health bar update
+
+    let reduceHealthTimely = () => {
+      this.health -= 1;
+      this.progressBar.clear();
+      this.progressBar.fillStyle(0xFFD700, 1);
+      this.progressBar.fillRect(170, 95,  this.health, 10);
+      this.healthTimer = 0;
+    }
+
+    this.time.addEvent({
+      callback: reduceHealthTimely,
+      delay: 500,
+      loop: true,
+      callbackScope: this,
     })
   }
 
@@ -328,6 +364,15 @@ class Game extends Phaser.Scene {
     this.moveBackgroundPlatform(this.mountainGroup, this.mountainWidth, 'mountains', 0.5);
     this.moveBackgroundPlatform(this.plateauGroup, this.plateauWidth, 'plateau', 1.5);
     this.moveBackgroundPlatform(this.groundGroup, this.groundWidth, 'ground', 4);
+
+    if(this.health <= 0) {
+      this.scene.stop();
+    }
+
+    if(this.missileScore >= 1){
+      this.health += 1;
+      this.missileScore -= 1;
+    }
 
     this.player.anims.play('run', true);
     this.birdGroup.children.iterate((child) => {
