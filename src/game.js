@@ -33,6 +33,28 @@ class Game extends Phaser.Scene {
       stroke: '#000'
     }).setDepth(8);
 
+    this.healthText = this.add.text(50, 75, 'Health: ', {
+      fontSize: '30px',
+      fill: '#ffffff',
+      strokeThickness: 8,
+      fontFamily: '"Akaya Telivigala"',
+      stroke: "#FF69B4"
+    }).setDepth(8);
+
+
+    this.progressBox = this.add.graphics();
+    this.progressBar = this.add.graphics();
+    this.progressBox.setDepth(8);
+    this.progressBar.setDepth(8);
+
+    this.progressBox.lineStyle(3, 0x0275d8, 1);
+    this.progressBox.strokeRect(170, 95, 200, 10);
+
+    this.progressBar.fillStyle(0xFFD700, 1);
+    this.progressBar.fillRect(170, 95,  200, 10);
+
+
+
     this.addGameBackground();
 
     this.player = this.physics.add.sprite(200, gameState.sceneHeight - 300,  'player').setScale(0.2);
@@ -120,8 +142,8 @@ class Game extends Phaser.Scene {
 
     this.physics.add.overlap(this.player, this.spikeGroup, (player, singleSpike) => {
       singleSpike.destroy();
-      this.hoveringTextScore(player, "Spiked!", '#ff0000', '#800080');
-    })
+      this.hoveringTextScore(player, "Spiked!", '#CCCC00', '#800080');
+    });
 
     // Missiles SECTION
 
