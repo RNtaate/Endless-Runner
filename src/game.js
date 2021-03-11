@@ -9,11 +9,29 @@ class Game extends Phaser.Scene {
   }
 
   preload() {
-    this.load.image('missile', '../assets/missile.png');
+
   }
 
   //Start of create function
   create() {
+
+    gameState.score = 0;
+
+    this.scoreText = this.add.text(50, 25, 'Coins: ', {
+      fontSize: "40px",
+      fill: '#333',
+      fontFamily: '"Akaya Telivigala"',
+      strokeThickness: 10,
+      stroke: '#FFD700'
+    }).setDepth(8);
+
+    this.scoreValue = this.add.text(170, 25, `${gameState.score}`, {
+      fontSize: '40px',
+      fill: '#ffffff',
+      fontFamily: '"Akaya Telivigala"',
+      strokeThickness: 5,
+      stroke: '#000'
+    }).setDepth(8);
 
     this.addGameBackground();
 
@@ -69,6 +87,8 @@ class Game extends Phaser.Scene {
 
     this.physics.add.overlap(this.player, this.coinGroup, (player, singleCoin) => {
       singleCoin.destroy();
+      gameState.score += 1;
+      this.scoreValue.setText(`${gameState.score}`);
       this.hoveringTextScore(player, '1+', "#0000ff");
     })
 
@@ -107,6 +127,13 @@ class Game extends Phaser.Scene {
 
     this.missileGroup = this.physics.add.group();
 
+    this.explosion = this.add.sprite(-100, -100, 'explosion').setScale(0.5).setDepth(8);
+
+    this.createAnimations('explode', 'explosion', 0, 15, 0, 20);
+
+    this.createAnimations('idle', 'explosion', 15, 15, -1, 1);
+    this.explosion.play('idle', true);
+
     this.physics.add.collider(this.player, this.missileGroup, (player, missile) => {
       if(player.body.touching.down && missile.body.touching.up){
         player.setVelocityY(-300);
@@ -116,6 +143,10 @@ class Game extends Phaser.Scene {
         missile.destroy();
         player.setVelocityY(0);
         this.hoveringTextScore(player, "Damage", "#ff0000", "#ff0000");
+
+        this.explosion.x = player.x;
+        this.explosion.y = player.y;
+        this.explosion.play('explode', true);
       }
     });
 
