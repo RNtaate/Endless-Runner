@@ -13,6 +13,7 @@ class Boot extends Phaser.Scene {
   }
 
   preload() {
+    this.load.html('form', 'form.html');
     this.load.addFile(new WebFontFile(this.load, 'Akaya Telivigala'));
   }
 
@@ -21,8 +22,30 @@ class Boot extends Phaser.Scene {
     gameState.sceneWidth = this.scale.width;
     gameState.sceneHeight = this.scale.height;
 
-    this.scene.stop();
-    this.scene.start('Preload');
+    this.add.text(gameState.sceneWidth / 2, gameState.sceneHeight / 2 - 100, 'Hullo There!', {
+      fontSize: '40px',
+      fill: '#ffffff',
+      fontFamily: 'Akaya Telivigala'
+    }).setOrigin(0.5);
+
+    this.add.text(gameState.sceneWidth / 2, gameState.sceneHeight / 2, 'Please enter your username and press "ENTER" to continue', {
+      fontSize: '30px',
+      fill: '#ffffff',
+      fontFamily: 'Akaya Telivigala',
+    }).setOrigin(0.5);
+
+    this.nameInput = this.add.dom(gameState.sceneWidth / 2, gameState.sceneHeight / 2 + 100).createFromCache('form');
+
+    this.enterKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
+
+    this.enterKey.on('down', () => {
+      let name = this.nameInput.getChildByName('name');
+      if(name.value.trim() !== "") {
+        gameState.playerName = name.value.trim();
+        this.scene.stop();
+        this.scene.start('Preload');
+      }
+    });
   }
 }
 
