@@ -22,7 +22,7 @@ class Game extends Phaser.Scene {
 
     this.scoreText = this.add.text(50, 25, 'Coins: ', {
       fontSize: "40px",
-      fill: '#333',
+      fill: '#ffffff',
       fontFamily: '"Akaya Telivigala"',
       strokeThickness: 10,
       stroke: '#FFD700'
@@ -146,7 +146,7 @@ class Game extends Phaser.Scene {
 
     this.physics.add.overlap(this.player, this.spikeGroup, (player, singleSpike) => {
       singleSpike.destroy();
-      this.health -= 3;
+      this.health -= 15;
       this.hoveringTextScore(player, "Spiked!", '#CCCC00', '#800080');
     });
 
@@ -176,9 +176,9 @@ class Game extends Phaser.Scene {
         this.hoveringTextScore(player, message, "#00ff00");
       }else{
         if(missile.y < 350){
-          this.health -= 3;
+          this.health -= 15;
         }else{
-          this.health -= 1;
+          this.health -= 10;
         }
         missile.destroy();
         player.setVelocityY(0);
