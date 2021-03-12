@@ -2,6 +2,17 @@ import Phaser from 'phaser';
 import {gameState} from './boot';
 import CustomButton from './support_script/CustomButton';
 
+let setText = (scene, x, y, message, fontSize, strokeColor, fillColor, originX = 0, originY = 0) => {
+  return scene.add.text(x, y, message, {
+    fontSize: fontSize,
+    fill: fillColor,
+    fontFamily: '"Akaya Telivigala"',
+    strokeThickness: 5,
+    stroke: strokeColor
+  }).setOrigin(originX, originY);
+}
+
+
 class GameOver extends Phaser.Scene {
   constructor() {
     super({key: 'GameOver'});
@@ -16,11 +27,11 @@ class GameOver extends Phaser.Scene {
 
     let heightDet = 100
 
-    this.setText(gameState.sceneWidth / 2, gameState.sceneHeight / 2 - heightDet, 'GAME OVER', '60px', '#ffffff', '#ff0000', 0.5 );
+    setText(this, gameState.sceneWidth / 2, gameState.sceneHeight / 2 - heightDet, 'GAME OVER', '60px', '#ffffff', '#ff0000', 0.5, 0.5 );
 
-    this.setText(gameState.sceneWidth / 2, gameState.sceneHeight / 2, `${gameState.playerName}`, '60px', '#ffffff', '#0000ff', 0.5 );
+    setText(this, gameState.sceneWidth / 2, gameState.sceneHeight / 2, `${gameState.playerName}`, '60px', '#ffffff', '#0000ff', 0.5, 0.5 );
 
-    this.setText(gameState.sceneWidth / 2, gameState.sceneHeight / 2 +  heightDet, `Your Score: ${gameState.score}`, '60px', '#ffffff', '#0000ff', 0.5 );
+    setText(this, gameState.sceneWidth / 2, gameState.sceneHeight / 2 +  heightDet, `Your Score: ${gameState.score}`, '60px', '#ffffff', '#0000ff', 0.5, 0.5 );
 
     // Scene Buttons
     const leaderBoardBtn = new CustomButton(this, (gameState.sceneWidth * 3) / 4 , gameState.sceneHeight - 75, "leaderBoard", 'leaderBoardHover');
@@ -40,16 +51,6 @@ class GameOver extends Phaser.Scene {
       this.scene.start('Game');
     })
   }
-
-  setText(x, y, message, fontSize, strokeColor, fillColor, origin = 0){
-    this.add.text(x, y, message, {
-      fontSize: fontSize,
-      fill: fillColor,
-      fontFamily: '"Akaya Telivigala"',
-      strokeThickness: 5,
-      stroke: strokeColor
-    }).setOrigin(origin);
-  }
 }
 
-export default GameOver;
+export {GameOver, setText};
