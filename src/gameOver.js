@@ -18,7 +18,7 @@ class GameOver extends Phaser.Scene {
 
     this.setText(gameState.sceneWidth / 2, gameState.sceneHeight / 2 - heightDet, 'GAME OVER', '60px', '#ffffff', '#ff0000', 0.5 );
 
-    this.setText(gameState.sceneWidth / 2, gameState.sceneHeight / 2, 'Player 1', '60px', '#ffffff', '#0000ff', 0.5 );
+    this.setText(gameState.sceneWidth / 2, gameState.sceneHeight / 2, `${gameState.playerName}`, '60px', '#ffffff', '#0000ff', 0.5 );
 
     this.setText(gameState.sceneWidth / 2, gameState.sceneHeight / 2 +  heightDet, `Your Score: ${gameState.score}`, '60px', '#ffffff', '#0000ff', 0.5 );
 
