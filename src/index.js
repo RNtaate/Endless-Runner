@@ -7,6 +7,7 @@ import Credits from './Credits';
 import Game from './game';
 import {GameOver} from './gameOver';
 import LeaderBoard from './leaderBoard';
+import Instructions from './instructions';
 
 const config = {
   type: Phaser.AUTO,
@@ -23,7 +24,7 @@ const config = {
   dom: {
     createContainer: true
   },
-  scene: [Boot, Preload, Menu, Options, Credits, Game, GameOver, LeaderBoard],
+  scene: [Boot, Preload, Menu, Options, Credits, Game, GameOver, LeaderBoard, Instructions],
 }
 
 const game = new Phaser.Game(config);
