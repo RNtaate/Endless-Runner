@@ -1,5 +1,6 @@
 import Phaser from 'phaser';
 import WebFontFile from './support_script/webfontloader';
+import 'regenerator-runtime/runtime';
 
 let gameState = {
   sceneWidth: 0,
