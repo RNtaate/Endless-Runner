@@ -9,6 +9,7 @@ import GameOver from './gameOver';
 
 const config = {
   type: Phaser.AUTO,
+  parent: 'game',
   width: 960,
   height: 520,
   physics: {
@@ -18,7 +19,10 @@ const config = {
       debug: false
     }
   },
-  scene: [Boot, Preload, Menu, Options, Credits, Game, GameOver]
+  dom: {
+    createContainer: true
+  },
+  scene: [Boot, Preload, Menu, Options, Credits, Game, GameOver],
 }
 
 const game = new Phaser.Game(config);
