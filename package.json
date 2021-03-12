@@ -26,5 +26,8 @@
     "webfontloader": "^1.6.28",
     "webpack": "^5.24.3",
     "webpack-cli": "^4.5.0"
+  },
+  "dependencies": {
+    "regenerator-runtime": "^0.13.7"
   }
 }
