@@ -35,15 +35,15 @@ class Menu extends Phaser.Scene {
     const leaderBoardBtn = new CustomButton(this, (this.width * 3) / 4 , this.height / 4, "leaderBoard", 'leaderBoardHover');
     this.add.existing(leaderBoardBtn);
 
-    leaderBoardBtn.setInteractive().on('pointerover', () => {
-      console.log('Thunder over the container');
+    leaderBoardBtn.setInteractive().on('pointerup', () => {
+      this.scene.start('Leader');
     })
 
     const instructionsBtn = new CustomButton(this, (this.width * 3) / 4 , (this.height * 3) / 4, "instructions", 'instructionsHover');
     this.add.existing(instructionsBtn);
 
-    instructionsBtn.setInteractive().on('pointerover', () => {
-      console.log('Thunder over the container');
+    instructionsBtn.setInteractive().on('pointerup', () => {
+      this.scene.start('instructions')
     })
 
     const creditsBtn = new CustomButton(this, (this.width) / 4 , (this.height * 3) / 4, "credits", 'creditsHover');
