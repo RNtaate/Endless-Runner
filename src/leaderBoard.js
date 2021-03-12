@@ -44,7 +44,6 @@ class LeaderBoard extends Phaser.Scene {
         setText(this, gameState.sceneWidth * 3 / 4 - 10, height, myScores[i]['score'].toString(), '30px', "#ffffff", '#000000', 1, 0.5);
       }
     }).catch((error) => {
-      console.log('a bad error');
       setText(this, gameState.sceneWidth / 2, gameState.sceneHeight / 2, 'failed to collect Scores!', '30px', "#ffffff", '#ff0000', 0.5, 0.5);
     })
 
