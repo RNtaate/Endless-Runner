@@ -37,8 +37,9 @@ class GameOver extends Phaser.Scene {
     const leaderBoardBtn = new CustomButton(this, (gameState.sceneWidth * 3) / 4 , gameState.sceneHeight - 75, "leaderBoard", 'leaderBoardHover');
     this.add.existing(leaderBoardBtn);
 
-    leaderBoardBtn.setInteractive().on('pointerover', () => {
-      console.log('Thunder over the container');
+    leaderBoardBtn.setInteractive().on('pointerup', () => {
+      this.scene.stop();
+      this.scene.start('Leader');
     })
 
     const playAgainBtn = new CustomButton(this, (gameState.sceneWidth) / 4 , gameState.sceneHeight - 75, "playAgain", 'playAgainHover');
