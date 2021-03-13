@@ -90,7 +90,8 @@ class Preload extends Phaser.Scene {
     this.load.audio('pickCoin', '../assets/pickCoin.wav');
     this.load.audio('explosion', '../assets/explode.wav');
     this.load.audio('killMissile', '../assets/killMissile.ogg');
-
+    this.load.audio('jumpSound', '../assets/jumpSound.mp3');
+    this.load.audio('spikeSound', '../assets/spikeSound.mp3');
 
     // for(let i = 0; i < 200; i ++) {
     //   this.load.image('logo' + i, '../assets/gameLogo.png');
