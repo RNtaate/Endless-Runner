@@ -87,6 +87,9 @@ class Preload extends Phaser.Scene {
 
     this.load.audio('theme1', '../assets/theme1.ogg');
     this.load.audio('theme2', '../assets/theme2.ogg');
+    this.load.audio('pickCoin', '../assets/pickCoin.wav');
+    this.load.audio('explosion', '../assets/explode.wav');
+    this.load.audio('killMissile', '../assets/killMissile.ogg');
 
 
     // for(let i = 0; i < 200; i ++) {
