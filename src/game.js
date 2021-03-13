@@ -22,6 +22,15 @@ class Game extends Phaser.Scene {
 
     playStopAudio(gameState.music, this.gameTheme);
 
+    this.pickCoin = this.sound.add('pickCoin', {loop: false});
+    this.pickCoin.volume = 0.4;
+
+    this.explodeSound = this.sound.add('explosion', {loop: false});
+    this.explodeSound.volume = 0.4;
+
+    this.killMissile = this.sound.add('killMissile', {loop: false});
+    this.killMissile.volume = 0.1;
+
     gameState.score = 0;
     this.health = 120;
 
@@ -116,6 +125,7 @@ class Game extends Phaser.Scene {
     });
 
     this.physics.add.overlap(this.player, this.coinGroup, (player, singleCoin) => {
+      this.pickCoin.play();
       singleCoin.destroy();
       gameState.score += 1;
       this.health += 1;
@@ -168,18 +178,20 @@ class Game extends Phaser.Scene {
 
     this.physics.add.collider(this.player, this.missileGroup, (player, missile) => {
       if(player.body.touching.down && missile.body.touching.up){
+        this.killMissile.play();
         player.setVelocityY(-300);
         missile.setVelocityY(300);
         let message = '';
         if(missile.y < 350){
+          message = message + '+0.5';
+          this.missileScore += 0.5;
+        }else{
           message = message + '+0.25';
           this.missileScore += 0.25;
-        }else{
-          message = message + '+0.1';
-          this.missileScore += 0.1;
         }
         this.hoveringTextScore(player, message, "#00ff00");
       }else{
+        this.explodeSound.play();
         if(missile.y < 350){
           this.health -= 15;
         }else{
