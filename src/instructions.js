@@ -28,7 +28,8 @@ class Instructions extends Phaser.Scene {
   
   Collecting Coins and hitting down Missiles contributes
   towards boosting your health to keep you in the game 
-  for a longer period of time.
+  for a longer period of time. (Colliding with a missile 
+  head on damages and depletes your health bar).
   
   Use the 'UP' arrow key to jump-(Tap it twice to jump
   twice).
@@ -39,7 +40,7 @@ class Instructions extends Phaser.Scene {
   let message2 = `!! NOW LET'S GO HAVE SOME FUN !!`;
 
     setText(this, gameState.sceneWidth / 2 + 70, gameState.sceneHeight / 2, 'INSTRUCTIONS', '60px', '#00ff00', '#ffffff', 0, 0.5);
-    setText(this, 20, 10, message, '20px', '#0000ff', '#ffffff', 0, 0);
+    setText(this, 20, 10, message, '20px', '#000000', '#ffffff', 0, 0);
     setText(this, 20, gameState.sceneHeight - 20, message2, '20px', '#ffffff', '#ff00ff', 0, 0.5);
 
     const backBtn = new CustomButton(this, gameState.sceneWidth - 100, gameState.sceneHeight - 50, 'mainMenu', 'mainMenuHover');
