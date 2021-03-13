@@ -47,7 +47,7 @@ class Options extends Phaser.Scene {
     }).setOrigin(0, 0.5);
     
     firstTick.setVisible(true);
-    if(!gameSound.music){
+    if(!gameState.music){
       firstTick.setVisible(false);
     }
 
@@ -55,16 +55,16 @@ class Options extends Phaser.Scene {
     const secondTick = this.add.image(this.width / 4, this.height / 2 + 100, 'tick').setScale(1.5);
     
     secondTick.setVisible(true);
-    if(!gameSound.sound){
+    if(!gameState.sound){
       secondTick.setVisible(false);
     }
 
     firstCheckBox.setInteractive().on('pointerup', () => {
-      gameSound.music = this.updateSoundStatus(firstTick, gameSound.music);
+      gameState.music = this.updateSoundStatus(firstTick, gameState.music);
     })
 
     secondCheckBox.setInteractive().on('pointerup', () => {
-      gameSound.sound = this.updateSoundStatus(secondTick, gameSound.sound);
+      gameState.sound = this.updateSoundStatus(secondTick, gameState.sound);
     })
 
     const backBtn = new CustomButton(this, this.width - 100, this.height - 50, 'mainMenu', 'mainMenuHover');
