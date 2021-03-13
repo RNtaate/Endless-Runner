@@ -5,7 +5,18 @@ import 'regenerator-runtime/runtime';
 let gameState = {
   sceneWidth: 0,
   sceneHeight: 0,
-  score: 0
+  score: 0,
+  music: true,
+  sound: true
+}
+
+let playStopAudio = (status, audio) => {
+  if(status) {
+    audio.play();
+  }
+  else {
+    audio.stop();
+  }
 }
 
 class Boot extends Phaser.Scene {
@@ -50,4 +61,4 @@ class Boot extends Phaser.Scene {
   }
 }
 
-export {Boot, gameState};
+export {Boot, gameState, playStopAudio};

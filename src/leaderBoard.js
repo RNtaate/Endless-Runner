@@ -1,5 +1,5 @@
 import Phaser from 'phaser';
-import {gameState} from './boot';
+import {gameState, playStopAudio} from './boot';
 import CustomButton from './support_script/CustomButton';
 import {setText} from './gameOver';
 import * as fetchScoreData from './support_script/fetchData';
@@ -15,6 +15,9 @@ class LeaderBoard extends Phaser.Scene {
   }
 
   create() {
+
+    this.hoverSound = this.sound.add('hoverBtnSound', {loop: false});
+    this.clickSound = this.sound.add('clickBtnSound', {loop: false});
 
     let height = 75;
     let myScores = [];
@@ -51,8 +54,11 @@ class LeaderBoard extends Phaser.Scene {
     this.add.existing(backBtn);
 
     backBtn.setInteractive().on('pointerup', () => {
+      playStopAudio(gameState.sound, this.clickSound);
       this.scene.stop();
       this.scene.start('Menu');
+    }).on('pointerover', () => {
+      playStopAudio(gameState.sound, this.hoverSound);
     })
   }
 }

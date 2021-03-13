@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
-import {gameState} from './boot';
+import {gameState, playStopAudio} from './boot';
 import CustomButton from './support_script/CustomButton';
+
 
 let setText = (scene, x, y, message, fontSize, strokeColor, fillColor, originX = 0, originY = 0) => {
   return scene.add.text(x, y, message, {
@@ -23,6 +24,10 @@ class GameOver extends Phaser.Scene {
   }
 
   create() {
+
+    this.hoverSound = this.sound.add('hoverBtnSound', {loop: false});
+    this.clickSound = this.sound.add('clickBtnSound', {loop: false});
+
     this.add.image(gameState.sceneWidth / 2, gameState.sceneHeight / 2, 'sky').setScale(0.5);
 
     let heightDet = 100
@@ -38,16 +43,20 @@ class GameOver extends Phaser.Scene {
     this.add.existing(leaderBoardBtn);
 
     leaderBoardBtn.setInteractive().on('pointerup', () => {
+      playStopAudio(gameState.sound, this.clickSound);
       this.scene.stop();
       this.scene.start('Leader');
+    }).on('pointerover', () => {
+      playStopAudio(gameState.sound, this.hoverSound);
     })
 
     const playAgainBtn = new CustomButton(this, (gameState.sceneWidth) / 4 , gameState.sceneHeight - 75, "playAgain", 'playAgainHover');
     this.add.existing(playAgainBtn);
 
     playAgainBtn.setInteractive().on('pointerover', () => {
-      console.log('Thunder over the container');
+      playStopAudio(gameState.sound, this.hoverSound);
     }).on('pointerup', () => {
+      playStopAudio(gameState.sound, this.clickSound);
       this.scene.stop();
       this.scene.start('Game');
     })

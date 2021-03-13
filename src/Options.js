@@ -1,5 +1,6 @@
 import Phaser from 'phaser';
 import CustomButton from './support_script/CustomButton';
+import {gameState, playStopAudio} from './boot';
 
 
 let gameSound = {
@@ -20,6 +21,9 @@ class Options extends Phaser.Scene {
 
     this.width = this.scale.width;
     this.height = this.scale.height;
+
+    this.hoverSound = this.sound.add('hoverBtnSound', {loop: false});
+    this.clickSound = this.sound.add('clickBtnSound', {loop: false});
 
     this.add.image(this.width / 2, this.height / 2, 'sky').setScale(0.5);
 
@@ -67,8 +71,11 @@ class Options extends Phaser.Scene {
     this.add.existing(backBtn);
 
     backBtn.setInteractive().on('pointerup', () => {
+      playStopAudio(gameState.sound, this.clickSound);
       this.scene.stop();
       this.scene.start('Menu');
+    }).on('pointerover', () => {
+      playStopAudio(gameState.sound, this.hoverSound);
     })
 
   }

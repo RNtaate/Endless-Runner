@@ -81,6 +81,9 @@ class Preload extends Phaser.Scene {
     this.load.image('missile', '../assets/missile.png');
     this.load.image('missile2', '../assets/missile2.png');
 
+    this.load.audio('hoverBtnSound', '../assets/rollover1.ogg');
+    this.load.audio('clickBtnSound', '../assets/switch3.ogg');
+
 
     // for(let i = 0; i < 200; i ++) {
     //   this.load.image('logo' + i, '../assets/gameLogo.png');
