@@ -22,11 +22,16 @@ class Menu extends Phaser.Scene {
     this.hoverSound = this.sound.add('hoverBtnSound', {loop: false});
     this.clickSound = this.sound.add('clickBtnSound', {loop: false});
 
+    gameState.theme1.volume = 0.1;
+
+    playStopAudio(gameState.music, gameState.theme1);
+
     const startButton = new CustomButton(this, this.width / 2, this.height / 2, 'startGame', 'startGameHover');
     this.add.existing(startButton);
 
     startButton.setInteractive().on('pointerup', () => {
       playStopAudio(gameState.sound, this.clickSound);
+      gameState.theme1.stop();
       this.startScene('Game');
     }).on('pointerover', () => {
       playStopAudio(gameState.sound, this.hoverSound);

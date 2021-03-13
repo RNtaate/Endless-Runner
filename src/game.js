@@ -1,5 +1,5 @@
 import Phaser from 'phaser';
-import {gameState} from './boot';
+import {gameState, playStopAudio} from './boot';
 
 class Game extends Phaser.Scene {
   constructor(){
@@ -16,6 +16,11 @@ class Game extends Phaser.Scene {
 
   //Start of create function
   create() {
+
+    this.gameTheme = this.sound.add('theme2', {loop: true});
+    this.gameTheme.volume = 0.1;
+
+    playStopAudio(gameState.music, this.gameTheme);
 
     gameState.score = 0;
     this.health = 120;
@@ -366,6 +371,7 @@ class Game extends Phaser.Scene {
     this.moveBackgroundPlatform(this.groundGroup, this.groundWidth, 'ground', 4);
 
     if(this.health <= 0) {
+      this.gameTheme.stop();
       this.scene.stop();
       this.scene.start('GameOver');
     }

@@ -61,6 +61,7 @@ class Options extends Phaser.Scene {
 
     firstCheckBox.setInteractive().on('pointerup', () => {
       gameState.music = this.updateSoundStatus(firstTick, gameState.music);
+      playStopAudio(gameState.music, gameState.theme1);
     })
 
     secondCheckBox.setInteractive().on('pointerup', () => {

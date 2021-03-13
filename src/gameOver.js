@@ -28,6 +28,8 @@ class GameOver extends Phaser.Scene {
     this.hoverSound = this.sound.add('hoverBtnSound', {loop: false});
     this.clickSound = this.sound.add('clickBtnSound', {loop: false});
 
+    playStopAudio(gameState.music, gameState.theme1);
+
     this.add.image(gameState.sceneWidth / 2, gameState.sceneHeight / 2, 'sky').setScale(0.5);
 
     let heightDet = 100
@@ -57,6 +59,7 @@ class GameOver extends Phaser.Scene {
       playStopAudio(gameState.sound, this.hoverSound);
     }).on('pointerup', () => {
       playStopAudio(gameState.sound, this.clickSound);
+      gameState.theme1.stop();
       this.scene.stop();
       this.scene.start('Game');
     })

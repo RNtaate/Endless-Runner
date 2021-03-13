@@ -13,6 +13,8 @@ class Instructions extends Phaser.Scene {
     this.hoverSound = this.sound.add('hoverBtnSound', {loop: false});
     this.clickSound = this.sound.add('clickBtnSound', {loop: false});
 
+    playStopAudio(gameState.music, gameState.theme1);
+
     this.add.image(gameState.sceneWidth / 2, gameState.sceneHeight / 2, 'sky').setScale(0.5);
 
     this.add.rectangle(0, 0, gameState.sceneWidth, gameState.sceneHeight, 0x000000, 0.2).setOrigin(0);
