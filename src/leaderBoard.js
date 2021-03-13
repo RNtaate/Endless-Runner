@@ -33,10 +33,15 @@ class LeaderBoard extends Phaser.Scene {
 
     setText(this, gameState.sceneWidth / 2, 25, 'Leader Board', '50px', "#ffffff", '#00ff00', 0.5);
 
+    this.fetchingScores = setText(this, gameState.sceneWidth / 2, gameState.sceneHeight / 2, 'Fetching Scores ...', '25px', '#ff00ff', "#ffffff", 0.5, 0.5);
+
     fetchScoreData.fetchScores(myUrl)
     .then((scores) => {
+      this.fetchingScores.destroy();
       myScores = scores.result;
-      console.log(myScores);
+      myScores.sort((a, b) => {
+        return b['score'] - a['score'];
+      })
 
       for(let i = 0; i < myScores.length; i += 1){
         if (i >= 8) {
@@ -47,6 +52,7 @@ class LeaderBoard extends Phaser.Scene {
         setText(this, gameState.sceneWidth * 3 / 4 - 10, height, myScores[i]['score'].toString(), '30px', "#ffffff", '#000000', 1, 0.5);
       }
     }).catch((error) => {
+      this.fetchingScores.destroy();
       setText(this, gameState.sceneWidth / 2, gameState.sceneHeight / 2, 'failed to collect Scores!', '30px', "#ffffff", '#ff0000', 0.5, 0.5);
     })
 
