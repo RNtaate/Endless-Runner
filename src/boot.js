@@ -12,7 +12,9 @@ let gameState = {
 
 let playStopAudio = (status, audio) => {
   if(status) {
-    audio.play();
+    if(!audio.isPlaying){
+      audio.play();
+    }
   }
   else {
     audio.stop();
