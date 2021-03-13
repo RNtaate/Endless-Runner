@@ -22,14 +22,7 @@ class Game extends Phaser.Scene {
 
     playStopAudio(gameState.music, this.gameTheme);
 
-    this.pickCoin = this.sound.add('pickCoin', {loop: false});
-    this.pickCoin.volume = 0.4;
-
-    this.explodeSound = this.sound.add('explosion', {loop: false});
-    this.explodeSound.volume = 0.4;
-
-    this.killMissile = this.sound.add('killMissile', {loop: false});
-    this.killMissile.volume = 0.1;
+    this.addSoundEffects();
 
     gameState.score = 0;
     this.health = 120;
@@ -160,6 +153,7 @@ class Game extends Phaser.Scene {
     });
 
     this.physics.add.overlap(this.player, this.spikeGroup, (player, singleSpike) => {
+      this.spikeSound.play();
       singleSpike.destroy();
       this.health -= 15;
       this.hoveringTextScore(player, "Spiked!", '#CCCC00', '#800080');
@@ -376,6 +370,20 @@ class Game extends Phaser.Scene {
     })
   }
 
+  createSoundEffect(soundKey, volumeLevel, loopStatus = false) {
+    let effect = this.sound.add(soundKey, {loop: loopStatus});
+    effect.volume = volumeLevel;
+    return effect;
+  }
+
+  addSoundEffects() {
+    this.pickCoin = this.createSoundEffect('pickCoin', 0.4, false);
+    this.explodeSound = this.createSoundEffect('explosion', 0.4, false);
+    this.killMissile = this.createSoundEffect('killMissile', 0.1, false);
+    this.jumpSound = this.createSoundEffect('jumpSound', 0.05, false);
+    this.spikeSound = this.createSoundEffect('spikeSound', 0.2, false);
+  }
+
   update(time, delta) {
 
     this.moveBackgroundPlatform(this.mountainGroup, this.mountainWidth, 'mountains', 0.5);
@@ -417,6 +425,7 @@ class Game extends Phaser.Scene {
     if(Phaser.Input.Keyboard.JustDown(this.cursors.up)){
       if(this.player.body.touching.down || (this.jump < this.jumpTimes && (this.jump > 0))){
         this.player.setVelocityY(-400);
+        this.jumpSound.play();
         
         if((this.player.body.touching.down)){
           this.jump = 0;
