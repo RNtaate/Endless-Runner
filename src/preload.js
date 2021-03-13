@@ -1,4 +1,5 @@
 import Phaser from 'phaser';
+import {gameState, playStopAudio} from './boot';
 
 class Preload extends Phaser.Scene {
   constructor() {
@@ -84,6 +85,9 @@ class Preload extends Phaser.Scene {
     this.load.audio('hoverBtnSound', '../assets/rollover1.ogg');
     this.load.audio('clickBtnSound', '../assets/switch3.ogg');
 
+    this.load.audio('theme1', '../assets/theme1.ogg');
+    this.load.audio('theme2', '../assets/theme2.ogg');
+
 
     // for(let i = 0; i < 200; i ++) {
     //   this.load.image('logo' + i, '../assets/gameLogo.png');
@@ -111,6 +115,8 @@ class Preload extends Phaser.Scene {
       alpha: 1,
       yoyo: true
     })
+
+    gameState.theme1 = this.sound.add('theme1', {loop: true});
 
     this.enter = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
   }
