@@ -4,10 +4,16 @@ jest.mock('../src/support_script/fetchData');
 
 const myApi = 'https://us-central1-js-capstone-backend.cloudfunctions.net/api/games/w6SPERY9Zb302Ci7sS5D/scores';
 
-test('Should return an object containing game scores', () => {
+test('The result of the returned object should be and array', () => {
   fetchScores(myApi)
     .then((scores) => {
       expect(scores.result instanceof Array).toBeTruthy();
+    }).catch((error) => error);
+});
+
+test('Should return an object containing game scores', () => {
+  fetchScores(myApi)
+    .then((scores) => {
       expect(scores.result[0].user).not.toBe('Rayhan');
     }).catch((error) => error);
 });
