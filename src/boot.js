@@ -2,28 +2,27 @@ import Phaser from 'phaser';
 import WebFontFile from './support_script/webfontloader';
 import 'regenerator-runtime/runtime';
 
-let gameState = {
+const gameState = {
   sceneWidth: 0,
   sceneHeight: 0,
   score: 0,
   music: true,
-  sound: true
-}
+  sound: true,
+};
 
-let playStopAudio = (status, audio) => {
-  if(status) {
-    if(!audio.isPlaying){
+const playStopAudio = (status, audio) => {
+  if (status) {
+    if (!audio.isPlaying) {
       audio.play();
     }
-  }
-  else {
+  } else {
     audio.stop();
   }
-}
+};
 
 class Boot extends Phaser.Scene {
   constructor() {
-    super({key: 'Boot'});
+    super({ key: 'Boot' });
   }
 
   preload() {
@@ -32,14 +31,13 @@ class Boot extends Phaser.Scene {
   }
 
   create() {
-
     gameState.sceneWidth = this.scale.width;
     gameState.sceneHeight = this.scale.height;
 
     this.add.text(gameState.sceneWidth / 2, gameState.sceneHeight / 2 - 100, 'Hullo There!', {
       fontSize: '40px',
       fill: '#ffffff',
-      fontFamily: 'Akaya Telivigala'
+      fontFamily: 'Akaya Telivigala',
     }).setOrigin(0.5);
 
     this.add.text(gameState.sceneWidth / 2, gameState.sceneHeight / 2, 'Please enter your username and press "ENTER" to continue', {
@@ -53,8 +51,8 @@ class Boot extends Phaser.Scene {
     this.enterKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
 
     this.enterKey.on('down', () => {
-      let name = this.nameInput.getChildByName('name');
-      if(name.value.trim() !== "") {
+      const name = this.nameInput.getChildByName('name');
+      if (name.value.trim() !== '') {
         gameState.playerName = name.value.trim();
         this.scene.stop();
         this.scene.start('Preload');
@@ -63,4 +61,4 @@ class Boot extends Phaser.Scene {
   }
 }
 
-export {Boot, gameState, playStopAudio};
+export { Boot, gameState, playStopAudio };

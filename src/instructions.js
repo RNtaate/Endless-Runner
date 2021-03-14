@@ -1,25 +1,25 @@
 import Phaser from 'phaser';
-import {gameState, playStopAudio} from './boot';
+import { gameState, playStopAudio } from './boot';
 import CustomButton from './support_script/CustomButton';
-import {setText} from './gameOver';
+import { setText } from './gameOver';
 
 class Instructions extends Phaser.Scene {
   constructor() {
-    super({key: 'instructions'});
+    super({ key: 'instructions' });
   }
 
   create() {
-
-    this.hoverSound = this.sound.add('hoverBtnSound', {loop: false});
-    this.clickSound = this.sound.add('clickBtnSound', {loop: false});
+    this.hoverSound = this.sound.add('hoverBtnSound', { loop: false });
+    this.clickSound = this.sound.add('clickBtnSound', { loop: false });
 
     playStopAudio(gameState.music, gameState.theme1);
 
     this.add.image(gameState.sceneWidth / 2, gameState.sceneHeight / 2, 'sky').setScale(0.5);
 
-    this.add.rectangle(0, 0, gameState.sceneWidth, gameState.sceneHeight, 0x000000, 0.2).setOrigin(0);
+    this.add.rectangle(0, 0, gameState.sceneWidth,
+      gameState.sceneHeight, 0x000000, 0.2).setOrigin(0);
 
-    let message = `"Run Buddy Run" is a simple fun game
+    const message = `"Run Buddy Run" is a simple fun game
   about collecting coins and hitting down missiles
   
   Your goal is to collect as many coins as you can
@@ -35,9 +35,9 @@ class Instructions extends Phaser.Scene {
   twice).
   
   Use the 'DOWN' arrow key to bring the player back to
-  the ground faster.`
+  the ground faster.`;
 
-  let message2 = `!! NOW LET'S GO HAVE SOME FUN !!`;
+    const message2 = '!! NOW LET\'S GO HAVE SOME FUN !!';
 
     setText(this, gameState.sceneWidth / 2 + 70, gameState.sceneHeight / 2, 'INSTRUCTIONS', '60px', '#00ff00', '#ffffff', 0, 0.5);
     setText(this, 20, 10, message, '20px', '#000000', '#ffffff', 0, 0);
@@ -52,7 +52,7 @@ class Instructions extends Phaser.Scene {
       this.scene.start('Menu');
     }).on('pointerover', () => {
       playStopAudio(gameState.sound, this.hoverSound);
-    })
+    });
   }
 }
 

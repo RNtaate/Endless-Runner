@@ -1,29 +1,30 @@
 import Phaser from 'phaser';
 import CustomButton from './support_script/CustomButton';
-import {gameState, playStopAudio} from './boot';
+import { gameState, playStopAudio } from './boot';
 
-
-let gameSound = {
-  music: true,
-  sound: true
-}
+const updateSoundStatus = (object, audioStatus) => {
+  let myStatus = audioStatus;
+  if (audioStatus) {
+    object.setVisible(false);
+    myStatus = false;
+  } else {
+    object.setVisible(true);
+    myStatus = true;
+  }
+  return myStatus;
+};
 
 class Options extends Phaser.Scene {
-  constructor(){
-    super({key: 'Options'});
-  }
-
-  preload() {
-
+  constructor() {
+    super({ key: 'Options' });
   }
 
   create() {
-
     this.width = this.scale.width;
     this.height = this.scale.height;
 
-    this.hoverSound = this.sound.add('hoverBtnSound', {loop: false});
-    this.clickSound = this.sound.add('clickBtnSound', {loop: false});
+    this.hoverSound = this.sound.add('hoverBtnSound', { loop: false });
+    this.clickSound = this.sound.add('clickBtnSound', { loop: false });
 
     this.add.image(this.width / 2, this.height / 2, 'sky').setScale(0.5);
 
@@ -32,41 +33,41 @@ class Options extends Phaser.Scene {
 
     this.add.text(this.width / 4 + 150, this.height / 2 - 100, 'Music', {
       fontSize: '60px',
-      fill: "#ffffff",
+      fill: '#ffffff',
       fontFamily: '"Akaya Telivigala"',
-      stroke: "#0275d8",
+      stroke: '#0275d8',
       strokeThickness: 10,
     }).setOrigin(0, 0.5);
 
     this.add.text(this.width / 4 + 150, this.height / 2 + 100, 'Sound Effects', {
       fontSize: '60px',
-      fill: "#ffffff",
+      fill: '#ffffff',
       fontFamily: '"Akaya Telivigala"',
-      stroke: "#0275d8",
+      stroke: '#0275d8',
       strokeThickness: 10,
     }).setOrigin(0, 0.5);
-    
+
     firstTick.setVisible(true);
-    if(!gameState.music){
+    if (!gameState.music) {
       firstTick.setVisible(false);
     }
 
     const secondCheckBox = this.add.image(this.width / 4, this.height / 2 + 100, 'checkbox').setScale(1.5);
     const secondTick = this.add.image(this.width / 4, this.height / 2 + 100, 'tick').setScale(1.5);
-    
+
     secondTick.setVisible(true);
-    if(!gameState.sound){
+    if (!gameState.sound) {
       secondTick.setVisible(false);
     }
 
     firstCheckBox.setInteractive().on('pointerup', () => {
-      gameState.music = this.updateSoundStatus(firstTick, gameState.music);
+      gameState.music = updateSoundStatus(firstTick, gameState.music);
       playStopAudio(gameState.music, gameState.theme1);
-    })
+    });
 
     secondCheckBox.setInteractive().on('pointerup', () => {
-      gameState.sound = this.updateSoundStatus(secondTick, gameState.sound);
-    })
+      gameState.sound = updateSoundStatus(secondTick, gameState.sound);
+    });
 
     const backBtn = new CustomButton(this, this.width - 100, this.height - 50, 'mainMenu', 'mainMenuHover');
     this.add.existing(backBtn);
@@ -77,21 +78,7 @@ class Options extends Phaser.Scene {
       this.scene.start('Menu');
     }).on('pointerover', () => {
       playStopAudio(gameState.sound, this.hoverSound);
-    })
-
-  }
-
-  updateSoundStatus(object, audioStatus) {
-    let myStatus = audioStatus;
-    if(audioStatus){
-      object.setVisible(false);
-      myStatus = false;
-    }
-    else {
-      object.setVisible(true);
-      myStatus = true;
-    }
-    return myStatus;
+    });
   }
 }
 

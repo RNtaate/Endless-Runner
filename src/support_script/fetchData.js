@@ -1,28 +1,30 @@
 import 'regenerator-runtime/runtime';
 
-const api_url = 'https://us-central1-js-capstone-backend.cloudfunctions.net/api/games/';
-const api_key = 'GRzadLatZp2NcDHxIoxp';
+const apiUrl = 'https://us-central1-js-capstone-backend.cloudfunctions.net/api/games/';
+const apiKey = 'GRzadLatZp2NcDHxIoxp';
 
-let postScores = async(url, data={}) => {
-  let options = {
+const postScores = async (url, data = {}) => {
+  const options = {
     method: 'POST',
     headers: {
-      'content-type': 'application/json'
+      'content-type': 'application/json',
     },
-    body: JSON.stringify(data)
-  }
+    body: JSON.stringify(data),
+  };
 
-  let req = await fetch(url, options);
-  let res = await req.json();
+  const req = await fetch(url, options);
+  const res = await req.json();
 
   return res;
-}
+};
 
-let fetchScores = async (url) => {
-  let req = await fetch(url);
-  let res = await req.json();
-  
+const fetchScores = async (url) => {
+  const req = await fetch(url);
+  const res = await req.json();
+
   return res;
-}
+};
 
-export {api_url, api_key, postScores, fetchScores};
+export {
+  apiUrl, apiKey, postScores, fetchScores,
+};

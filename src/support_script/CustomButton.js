@@ -1,7 +1,7 @@
 import Phaser from 'phaser';
 
 export default class CustomButton extends Phaser.GameObjects.Container {
-  constructor(scene, x, y, firstImage, hoverImage){
+  constructor(scene, x, y, firstImage, hoverImage) {
     super(scene, x, y);
 
     this.firstImage = scene.add.image(0, 0, firstImage);
@@ -20,6 +20,6 @@ export default class CustomButton extends Phaser.GameObjects.Container {
     }).on('pointerout', () => {
       this.firstImage.setVisible(true);
       this.hoverImage.setVisible(false);
-    })
+    });
   }
 }
