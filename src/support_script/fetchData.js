@@ -1,7 +1,7 @@
 import 'regenerator-runtime/runtime';
 
 const api_url = 'https://us-central1-js-capstone-backend.cloudfunctions.net/api/games/';
-const api_key = 'w6SPERY9Zb302Ci7sS5D';
+const api_key = 'GRzadLatZp2NcDHxIoxp';
 
 let postScores = async(url, data={}) => {
   let options = {
