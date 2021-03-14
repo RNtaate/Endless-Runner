@@ -1,18 +1,7 @@
 import Phaser from 'phaser';
 import CustomButton from './support_script/CustomButton';
 import { gameState, playStopAudio } from './boot';
-
-const updateSoundStatus = (object, audioStatus) => {
-  let myStatus = audioStatus;
-  if (audioStatus) {
-    object.setVisible(false);
-    myStatus = false;
-  } else {
-    object.setVisible(true);
-    myStatus = true;
-  }
-  return myStatus;
-};
+import updateSoundStatus from './support_script/statusUpdate';
 
 class Options extends Phaser.Scene {
   constructor() {
