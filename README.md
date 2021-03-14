@@ -26,7 +26,7 @@
 
 ## 🔴 Live Demo
 
-- Coming Soon!
+- [Run Buddy Run](https://raw.githack.com/RNtaate/Endless-Runner/feature-endless/dist/index.html)
 
 ## How to deploy the game on your local machine
 
