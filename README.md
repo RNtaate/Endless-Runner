@@ -28,6 +28,39 @@
 
 - [Run Buddy Run](https://raw.githack.com/RNtaate/Endless-Runner/feature-endless/dist/index.html)
 
+## Game Development
+
+- ### Ideation
+  During the planning phase of the game, I was faced with the conundrum of recognizing that there are plenty of platformer runner games out there most of which share the same ideas. Therefore I decided to proceed with the Idea of creating a runner game that not only relys on one's skills to hit a good score, but also a little bit of luck -- Meaning one's probability of not hitting a high score each session of play is slightly higher than most games due to the luck factor involved.
+
+- ## Designing
+  This phase was such a pivotal part of the development process. In it, despite the project being a simple 2D platformer game, I desired for it to capture one's eye by creating quite decent visuals and graphics hence the decision of building a faintly deep **Parallax** of upto 3 layers of scrolling background images, which images along with other assets were obtained from good sources which are mentioned in the `Acknowledgements` section
+
+  The challenge in this was to create an infinite scrolling parallax without consuming extra memory because memory is finite (Which i managed to achieve).
+
+- ## Development
+  Working with Phaser 3 was very interesting and after some time, you learn to appreciate the work put into it.
+
+  I listed the main features I wanted in my game and designed them following the Phaser 3 documentation.
+
+  Breifly, below are the steps I followed in development: 
+
+  - Install Phaser using Node Package Manager(npm) and set up the game configuration.
+
+  - Design the Game scene by implementing the following:
+    1. Create a game background with associated parallax and optimise it.
+    1. Add the player character and associated functionality/features
+    1. Add the enemies and other characters with associated features
+    1. Add a scoring system
+
+  - Design other supplimentary scenes.
+  - Add sound to the game.
+  - Add and implement the Leader Board functionality using the scoring api.
+  - Finalise.
+
+- ## Deployment
+  First the game was deployed on [githack.com](rawcdn.githack.com), and later it will be deployed on Netlify.
+
 ## How to deploy the game on your local machine
 
 ### Prerequisites
