@@ -1,5 +1,7 @@
 import Phaser from 'phaser';
 import {gameState, playStopAudio} from './boot';
+import * as fetchScoreData from './support_script/fetchData';
+import 'regenerator-runtime/runtime.js';
 
 class Game extends Phaser.Scene {
   constructor(){
@@ -391,6 +393,11 @@ class Game extends Phaser.Scene {
     this.moveBackgroundPlatform(this.groundGroup, this.groundWidth, 'ground', 4);
 
     if(this.health <= 0) {
+
+      let myUrl = fetchScoreData.api_url + fetchScoreData.api_key + '/scores';
+
+      fetchScoreData.postScores(myUrl, {'user': gameState.playerName, 'score': gameState.score});
+
       this.gameTheme.stop();
       this.scene.stop();
       this.scene.start('GameOver');
