@@ -48,7 +48,7 @@ class LeaderBoard extends Phaser.Scene {
           break;
         }
         height += 50
-        setText(this, gameState.sceneWidth / 4 + 10, height, myScores[i]['user'], '30px', "#ffffff", '#0000ff', 0, 0.5);
+        setText(this, gameState.sceneWidth / 4 + 10, height,  `${i + 1}).  ${myScores[i]['user']}`, '30px', "#ffffff", '#0000ff', 0, 0.5);
         setText(this, gameState.sceneWidth * 3 / 4 - 10, height, myScores[i]['score'].toString(), '30px', "#ffffff", '#000000', 1, 0.5);
       }
     }).catch((error) => {
