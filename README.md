@@ -4,7 +4,7 @@
 
 ## Preview
 
-![](assets/gameGif.gif)
+![](assets/gameGif3.gif)
 
 ##  🔧 Built with
 
