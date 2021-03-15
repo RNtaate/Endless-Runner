@@ -1,0 +1,42 @@
+{
+  "name": "endless-runner",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "jest",
+    "watch": "webpack --progress --watch",
+    "build": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RNtaate/Endless-Runner.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RNtaate/Endless-Runner/issues"
+  },
+  "homepage": "https://github.com/RNtaate/Endless-Runner#readme",
+  "devDependencies": {
+    "@babel/core": "^7.13.8",
+    "@babel/preset-env": "^7.13.9",
+    "babel-eslint": "^10.1.0",
+    "babel-loader": "^8.2.2",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^14.1.0",
+    "eslint-plugin-import": "^2.20.2",
+    "stylelint": "^13.3.3",
+    "stylelint-config-standard": "^20.0.0",
+    "stylelint-csstree-validator": "^1.9.0",
+    "stylelint-scss": "^3.17.2",
+    "webpack": "^5.24.3",
+    "webpack-cli": "^4.5.0"
+  },
+  "dependencies": {
+    "jest": "^26.6.3",
+    "regenerator-runtime": "^0.13.7",
+    "phaser": "^3.52.0",
+    "webfontloader": "^1.6.28"
+  }
+}
