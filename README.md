@@ -32,6 +32,7 @@
 ## 🔴 Live Demo
 
 - [Run Buddy Run](https://raw.githack.com/RNtaate/Endless-Runner/feature-endless/dist/index.html)
+- [Run Buddy Run, on Netlify](https://run-buddy-run.netlify.app/)
 
 ## Game Development
 
