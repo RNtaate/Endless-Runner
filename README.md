@@ -1,5 +1,10 @@
 # Endless-Runner (Run Buddy Run)
 
+![Linters](https://github.com/RNtaate/Endless-Runner/workflows/Linters/badge.svg)
+[![GitHub Pull Requests](https://img.shields.io/badge/GitHub-Pull%20Requests-blue)]()
+
+## Project Description
+
 > This project is an online endless platformer game built with Phaser 3 Library
 
 ## Preview
