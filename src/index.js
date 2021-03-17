@@ -1,4 +1,4 @@
-import "../stylesheets/styler.css";
+import '../stylesheets/styler.css';
 import Phaser from 'phaser';
 import Preload from './preload';
 import { Boot } from './boot';
